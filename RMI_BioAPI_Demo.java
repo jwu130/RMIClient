@@ -10,6 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
+import java.util.Scanner;
 
 public class RMI_BioAPI_Demo {
 
@@ -113,13 +114,13 @@ public class RMI_BioAPI_Demo {
 
 		// Find/create file and create printwriter
 		try {
-			outStream = new PrintWriter(new FileOutputStream(local_fileName));
-			System.out.println("Local file found in this location: " + outStream.toString());
-			
 			// For displaying where the file ended up
 			// Need to designate a location to find the client files ?
-			File f = new File("txtClient");
-			System.out.println("txtClient found " + f.getAbsolutePath());
+			File f = new File("local_fileName");
+			System.out.println(local_fileName + " found " + f.getAbsolutePath());
+			
+			outStream = new PrintWriter(new FileOutputStream(local_fileName));
+			System.out.println("Local file found in this location: " + outStream.toString());
 			
 		} catch (FileNotFoundException e1) {
 			System.out.println("Failed to open file to write to. File name was: " + local_fileName);
@@ -148,6 +149,12 @@ public class RMI_BioAPI_Demo {
 		pw.close();
 		try {
 			br.close();
+			
+			Scanner reader = new Scanner(System.in);  // Reading from System.in
+			System.out.println("Enter any string to exit.. ");
+			String n = reader.next();
+			reader.close();
+			
 			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
