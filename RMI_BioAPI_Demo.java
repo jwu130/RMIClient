@@ -54,7 +54,7 @@ public class RMI_BioAPI_Demo {
 				try {
 					initialize_socket(socket_port, local_fileName);
 				} catch (Exception e) {
-					System.out.println("Error on initializing socket server");
+					System.out.println(e.getMessage() + " Error on initializing socket server");
 				}
 			}
 			// If AsteriskJava, create new client instance
@@ -89,7 +89,6 @@ public class RMI_BioAPI_Demo {
 			serverSocket.close();
 		} catch (IOException e) {
 			System.err.println("Could not listen on port: " + port + e.getMessage());
-			System.exit(-1);
 		}
 	}
 
@@ -129,7 +128,7 @@ public class RMI_BioAPI_Demo {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-
+		
 		try {
 			while ((inputln = br.readLine()) != "Done" && inputln != null) {
 				System.out.println(inputln);
@@ -151,9 +150,10 @@ public class RMI_BioAPI_Demo {
 			br.close();
 			
 			Scanner reader = new Scanner(System.in);  // Reading from System.in
-			System.out.println("Enter any string to exit.. ");
-			String n = reader.next();
-			reader.close();
+			System.out.println("Enter any string to continue.. ");
+			String temp = reader.next();
+			if (temp != null)
+				reader.close();
 			
 			socket.close();
 		} catch (IOException e) {
